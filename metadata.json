@@ -1,0 +1,5 @@
+{
+  "name": "Trình quản lý mật khẩu",
+  "description": "Một ứng dụng web an toàn và trực quan để quản lý tất cả các tài khoản và mật khẩu của bạn một cách hiệu quả. Lưu trữ thông tin đăng nhập cho các trang web, hosting, VPS và nhiều hơn nữa. Dữ liệu được lưu trữ cục bộ trong trình duyệt của bạn.",
+  "requestFramePermissions": []
+}
