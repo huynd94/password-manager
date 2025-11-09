@@ -28,6 +28,18 @@ Important paths
 - Systemd: /etc/systemd/system/password-manager.service
 - Logs: journalctl -u password-manager -f
 
+CloudPanel-friendly deployment
+- Không can thiệp Nginx/Certbot (được quản lý bởi CloudPanel), chỉ thiết lập backend + copy frontend vào Web Root.
+- Cài đặt (từ repo root):
+  sudo bash backend/deploy/install-cloudpanel.sh --web-root /home/USER/htdocs/DOMAIN/public --domain your.domain.com
+  - Tham số bắt buộc: `--web-root` (public document root của site trong CloudPanel)
+  - Tuỳ chọn: `--port`, `--db-name`, `--db-user`, `--db-pass`, `--jwt-secret`, `--cors-origin`, `--app-dir`
+- Script sẽ hướng dẫn bạn thêm 2 khối cấu hình Nginx trong CloudPanel cho site:
+  - location /api { proxy_pass http://127.0.0.1:<PORT>; ... }
+  - location / { try_files $uri $uri/ /index.html; }
+- Cập nhật lần sau:
+  sudo bash backend/deploy/update-cloudpanel.sh --web-root /home/USER/htdocs/DOMAIN/public
+
 Updating to a new version
 - Pull code mới, rồi chạy:
   sudo bash backend/deploy/update.sh
