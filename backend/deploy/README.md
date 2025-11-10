@@ -40,6 +40,13 @@ CloudPanel-friendly deployment
 - Cập nhật lần sau:
   sudo bash backend/deploy/update-cloudpanel.sh --web-root /home/USER/htdocs/DOMAIN/public
 
+Uninstall
+- CloudPanel (an toàn, không đụng Nginx/Certbot):
+  - sudo bash backend/deploy/uninstall-cloudpanel.sh --drop-db --db-name password_manager --db-user password_manager
+- Generic (đã dùng installer cũ có cài Nginx site):
+  - sudo bash backend/deploy/uninstall.sh --drop-db --purge-node --purge-postgres
+  - Lưu ý: các flag purge có thể ảnh hưởng ứng dụng khác. Bỏ các flag nếu không chắc chắn.
+
 Updating to a new version
 - Pull code mới, rồi chạy:
   sudo bash backend/deploy/update.sh

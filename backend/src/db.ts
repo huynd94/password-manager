@@ -15,10 +15,18 @@ export const pool = new Pool(
 );
 
 export async function initDb() {
-  // Ensure table exists according to spec
-  await pool.query(
-    'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"; ' +
-      'CREATE TABLE IF NOT EXISTS users (id UUID PRIMARY KEY DEFAULT uuid_generate_v4(), username VARCHAR(255) UNIQUE NOT NULL, password_hash TEXT NOT NULL, encrypted_vault TEXT);'
-  );
+  // Expect extension to exist (created by deploy scripts). Attempt to create table; log any failure.
+  const sql =
+    'CREATE TABLE IF NOT EXISTS users (' +
+    'id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),' +
+    'username VARCHAR(255) UNIQUE NOT NULL,' +
+    'password_hash TEXT NOT NULL,' +
+    'encrypted_vault TEXT' +
+    ');';
+  try {
+    await pool.query(sql);
+  } catch (err) {
+    // Do not crash app start; log for diagnostics.
+    console.error('DB init failed (ensure extension uuid-ossp exists):', err);
+  }
 }
-
