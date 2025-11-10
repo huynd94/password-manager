@@ -41,7 +41,7 @@ rsync -a --delete "$SRC_BACKEND_DIR/" "$BACKEND_DIR/"
 
 cd "$BACKEND_DIR"
 echo "Installing deps and building backend..."
-npm install
+npm install --include=dev
 npm run build
 
 echo "Restarting service $SERVICE_NAME ..."
@@ -50,10 +50,9 @@ systemctl status "$SERVICE_NAME" --no-pager -l || true
 
 echo "Building frontend..."
 cd "$REPO_ROOT"
-npm install
+npm install --include=dev
 npm run build
 mkdir -p "$WEB_ROOT"
 rsync -a --delete "$REPO_ROOT/dist/" "$WEB_ROOT/"
 
 echo "Update complete. Remember to reload Nginx from CloudPanel if needed."
-

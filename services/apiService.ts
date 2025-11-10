@@ -1,7 +1,8 @@
 import { Account } from '../types';
 
 // Trong một ứng dụng thực tế, URL này sẽ là domain của bạn
-const API_BASE_URL = 'http://localhost:4000/api'; // Hoặc địa chỉ IP VPS của bạn
+// Dùng đường dẫn tương đối để chạy chung domain qua reverse proxy
+const API_BASE_URL = '/api';
 
 // --- Các hàm mã hóa/giải mã vẫn giữ nguyên ở client ---
 // (Bạn có thể sao chép các hàm helper từ hook useEncryptedLocalStorage.ts vào đây)

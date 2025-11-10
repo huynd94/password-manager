@@ -105,7 +105,7 @@ chown -R www-data:www-data "$APP_DIR"
 
 echo "[6/9] Installing backend dependencies and building..."
 cd "$BACKEND_DIR"
-npm install
+npm install --include=dev
 npm run build
 
 echo "[7/9] Writing environment file to $ENV_FILE ..."
@@ -155,7 +155,7 @@ apt-get install -y nginx
 
 # Build frontend (Vite)
 cd "$REPO_ROOT"
-npm install
+npm install --include=dev
 npm run build
 mkdir -p "$WEB_ROOT"
 rsync -a --delete "$REPO_ROOT/dist/" "$WEB_ROOT/"

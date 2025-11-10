@@ -92,7 +92,7 @@ fi
 mkdir -p "$BACKEND_DIR" "$ENV_DIR"
 rsync -a --delete "$SRC_BACKEND_DIR/" "$BACKEND_DIR/"
 cd "$BACKEND_DIR"
-npm install
+npm install --include=dev
 npm run build
 
 echo "[4/6] Write backend environment and systemd service..."
@@ -132,7 +132,7 @@ systemctl status "$SERVICE_NAME" --no-pager -l || true
 
 echo "[5/6] Build frontend and copy to CloudPanel web root..."
 cd "$REPO_ROOT"
-npm install
+npm install --include=dev
 npm run build
 mkdir -p "$WEB_ROOT"
 rsync -a --delete "$REPO_ROOT/dist/" "$WEB_ROOT/"
@@ -157,4 +157,3 @@ cat <<INSTRUCT
 INSTRUCT
 
 echo "Deployment complete."
-
